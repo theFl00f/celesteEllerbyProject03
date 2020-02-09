@@ -3,22 +3,35 @@ $(document).ready(() => {
     const $dialogue = $('.dialogue')
     const $obstacle = $('.obstacle')
     const $char = $('.char')
+    const $main = $('main')
     // on click of "start" close dialogue
+    $char.addClass('disabled');
+
     $button.on('click', function(e) {
         e.preventDefault();
         $dialogue.toggle(false);
+        setInterval(function() {
+            $char.removeClass('disabled')
+        }, 200)
     })
     // also on click of "start" activate method to jump set amount on input
 
     const jump = () => {
-        $char.stop( true, true )
-        .animate({bottom: '50%'}, 600)
-        .delay(250)
-        .animate({bottom: '20%'}, 600);
-    
-        // setTimeout(function() {
-        //     $char.removeClass('jump')
-        // }, 1500)
+        if ($char.hasClass('jump') === false && $char.hasClass('disabled') === false) {
+            $char.animate({bottom: '50%'}, {
+                duration: 600,
+                start: function () {
+                    $char.addClass('jump')
+                }
+            })
+            .delay(500)
+            .animate({bottom: '20%'}, {
+                duration: 600,
+                complete: function() {
+                    $char.removeClass('jump')
+                }
+            });
+        }
     }
 
     $(document).on('keydown', function(e) {
@@ -26,6 +39,12 @@ $(document).ready(() => {
             jump();
         } 
     })
+    
+    $main.on('click', function() {
+        
+        jump();
+    })
+    $
 
 
 
