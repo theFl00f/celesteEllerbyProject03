@@ -1,0 +1,43 @@
+body,
+.wrapper {
+    position: relative;
+}
+
+main {
+    position: relative;
+}
+
+.floor {
+    position: absolute;
+    background-color: $black;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 80%;
+    border: hidden;
+    border-radius: 0 0 5px 5px;
+}
+
+.char {
+    position: absolute;
+    bottom: 20%;
+    left: 15%;
+    width: 75px;
+    height: 75px;
+    background-color: $white;
+    border: hidden;
+    border-radius: 7.5px;
+    z-index: 10;
+}
+
+.obstacle {
+    position: absolute;
+    bottom: 20%;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 75px solid $secondaryColor;      // $black   
+
+}

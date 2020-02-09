@@ -1,0 +1,21 @@
+button {
+    padding: 5% 10%;
+    background-color: $white;
+    border: transparent;
+    border-radius: 5px;
+}
+
+.dialogue {
+    padding: 2%;
+    background-color: $secondaryColor;
+    position: absolute;
+    top: 30%;
+    bottom: 30%;
+    left: 35%;
+    right: 35%;
+    border: transparent;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
