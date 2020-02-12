@@ -12,7 +12,8 @@ $(document).ready(() => {
     $button.on('click', function(e) {
         e.preventDefault();
         $dialogue.toggle(false);
-        setInterval(function() {
+        $main.css('filter', 'none')
+        setTimeout(function() {
             $char.removeClass('disabled')
         }, 200)
     })
@@ -61,9 +62,17 @@ $(document).ready(() => {
     
     // also on click of "start" start method on bg obstacle objects to move across screen at solid rate
 
+
+    //ISSUE - DOESN'T EXECUTE EACH TIME
+    //things i've tried: declaring obstacleLocationInterval as a let globally and moving the function into the animationend
+    //same but with a const = null
+    //the issue is the scope. It calls once when it's declared on pageload, but am not able o return obstacleLocationInterval in a function
+
     const obstacleLocationInterval = setInterval(function() {
         updateObstacleLocation()
     }, 100)
+    
+    console.log(obstacleLocationInterval)
 
     $button.on('click', function obstacleGo() {
         
@@ -71,7 +80,7 @@ $(document).ready(() => {
         .animate({left: '-10%'}, 4600, "linear", function() {
             increaseScore()
             obstacleGo();
-
+            //OTHER TWO DO, IDK WHAT'S GOIN ON
             obstacleLocationInterval
         });
     })
@@ -105,9 +114,17 @@ $(document).ready(() => {
             char.x < obstacle.x + obstacle.width &&
             char.x + char.width > obstacle.x) {
                 console.log('collision')
-                $char.stop()
+                // also stop movement on all units
+                $char.stop( true, false ).animate({bottom: '20%'}, 500, function() {
+                    $char.addClass('disabled')
+                })
                 $obstacle.stop()
                 clearInterval(obstacleLocationInterval)
+                $main.css("filter", "brightness(75%) contrast(133%)")
+                setTimeout(function() {
+                    $dialogue.toggle(true)
+                    $char.addClass('disabled')
+                }, 300)
             }
         
     }
@@ -145,7 +162,6 @@ $(document).ready(() => {
 
 
 
-    // also stop movement on all units
     // also fade div darker
     // after interval, show dialogue with number of obstacles avoided and a try again
     // reset game on try again
