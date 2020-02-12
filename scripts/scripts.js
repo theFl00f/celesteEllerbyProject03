@@ -33,6 +33,9 @@ $(document).ready(() => {
                     $char.removeClass('jump')
                 }
             });
+            setInterval(function() {
+                updateCharLocation();
+            }, 100)
         }
     }
 
@@ -57,72 +60,91 @@ $(document).ready(() => {
 
     
     // also on click of "start" start method on bg obstacle objects to move across screen at solid rate
+
+    const obstacleLocationInterval = setInterval(function() {
+        updateObstacleLocation()
+    }, 100)
+
     $button.on('click', function obstacleGo() {
         
         $obstacle.css({left:'100%'}).delay(1000)
         .animate({left: '-10%'}, 4600, "linear", function() {
             increaseScore()
             obstacleGo();
+
+            obstacleLocationInterval
         });
     })
     
-
-
-    // const charPosition = $char.offset();
+    
+    
+    
+    // if char borderbox intersects with obstacle's borderbox, execute stop input from user
+    const charPosition = $char.offset();
     const charWidth = $char.width();
     const charHeight = $char.height();
-    // const obstaclePosition = $obstacle.offset();
-
-    console.log($char)
-
+    const obstaclePosition = $obstacle.offset();
+    
     const char = {
-        x: charPosition.top,
-        y: charPosition.left,
+        y: charPosition.top,
+        x: charPosition.left,
         width: charWidth,
         height: charHeight
     }
     
     const obstacle = {
-        x: obstaclePosition.top,
-        y: obstaclePosition.left,
+        y: obstaclePosition.top,
+        x: obstaclePosition.left,
         width: charWidth,
         height: charHeight
     }
-
+    
     const checkCollision = () => {
-                if ((char.y + char.height) < obstacle.y ||
-                char.y > (obstacle.y + obstacle.height) ||
-                (char.x + char.width) < char.x ||
-                char.x > (obstacle.x + char.width)) {
-                    console.log(char.x, char.y, obstacle.x, obstacle.y)
-
-                }
+        if (char.y < obstacle.y + obstacle.height && 
+            char.y + char.height > obstacle.y &&
+            char.x < obstacle.x + obstacle.width &&
+            char.x + char.width > obstacle.x) {
+                console.log('collision')
+                $char.stop()
+                $obstacle.stop()
+                clearInterval(obstacleLocationInterval)
+            }
         
     }
-
-    // setInterval(function collisionTimer() {
-    //     checkCollision()
-    // }, 300)
-
-
-    // console.log(char, obstacle)
-
-    // if (char.x < obstacle.x + obstacle.width) {
-    //     console.log('width')
-    // }
-    // if (char.x + char.width > obstacle.x) {
-    //     console.log('width 2')
-    // }
-    // if (char.y < obstacle.y + char.height) {
-    //     console.log('height')
-    // }
-    // if (char.y + char.height > obstacle.y) {
-    //     console.log('height2')
-    // }
-
+    const updateObstacleLocation = () => {
+        obstacle.x = $obstacle.offset().left
+        obstacle.y = $obstacle.offset().top
+        checkCollision()
+    }
     
+    const updateCharLocation = () => {
+        char.x = $char.offset().left
+        char.y = $char.offset().top
+    }
+    //
+    //
+    // THIS WORKS
+    //
+    //
+    
+    
+    // $obstacle.css({left: '100%'})
+    // console.log($obstacle.offset());
+    // setTimeout(function() {
+        //     $obstacle.css({left: '-10%'})
+        //     console.log($obstacle.offset())
+        // }, 200)
+        
+        
+        //
+        //
+        //
+        //
+        //
+        
 
-    // if char borderboc intersects with obstacle's borderbox, execute stop input from user
+
+
     // also stop movement on all units
     // also fade div darker
     // after interval, show dialogue with number of obstacles avoided and a try again
