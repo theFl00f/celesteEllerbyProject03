@@ -241,7 +241,8 @@ main,
 h1,
 h2,
 span,
-button {
+button,
+p {
   margin: 0;
   border: none;
 }
@@ -272,6 +273,12 @@ button {
   color: #0c1713;
   font-family: "Fredoka One", cursive;
   font-size: 2.0rem;
+}
+
+p {
+  font-family: "Raleway", sans-serif;
+  color: #86a59c;
+  font-size: 1.6rem;
 }
 
 body,
@@ -317,6 +324,10 @@ main {
   border-bottom: 75px solid #643173;
 }
 
+.hiddenDialogue {
+  display: none;
+}
+
 button {
   padding: 5% 10%;
   background-color: #fff2d8;
@@ -347,7 +358,6 @@ button {
 
 body {
   background-color: #7d5ba6;
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -406,6 +416,20 @@ main {
       -ms-grid-row-align: stretch;
       align-self: stretch;
   min-height: 375px;
+}
+
+.dialogue {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+p {
+  padding-bottom: 5%;
 }
 
 h1,
