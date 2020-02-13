@@ -319,9 +319,9 @@ main {
   left: 100%;
   width: 0;
   height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 75px solid #643173;
+  border-left: 3.8vw solid transparent;
+  border-right: 3.8vw solid transparent;
+  border-bottom: 5.2vw solid #643173;
 }
 
 .hiddenDialogue {

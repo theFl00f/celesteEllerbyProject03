@@ -49,7 +49,11 @@ $(document).ready(() => {
         }
     }
 
+        // reset game on try again
     $button.on('click', function(e) {
+        if (obstacle.collide === true) {
+            $char.removeClass('jump')
+        }
         e.preventDefault();
         score = 0;
         $score.html(score)
@@ -110,35 +114,11 @@ $(document).ready(() => {
         return obstacleLocationInterval
     }
     
-    const checkCollision = () => {
-        if (char.y < obstacle.y + obstacle.height && 
-            char.y + char.height > obstacle.y &&
-            char.x < obstacle.x + obstacle.width &&
-            char.x + char.width > obstacle.x) {
-                console.log('collision')
-                obstacle.collide = true;
-                // also stop movement on all units
-                $char.stop( true, false ).animate({bottom: '20%'}, 500, function() {
-                    $char.addClass('disabled')
-                })
-                $obstacle.stop()
-                $main.css("filter", "brightness(75%) contrast(133%)")
-                $p.html(`your score: ${score}`)
-                $button.html('try again!')
-                setTimeout(function() {
-                    $dialogue.toggle('hiddenDialogue')
-                    $char.addClass('disabled')
-                }, 300)
-            }
-        
-    }
     const updateObstacleLocation = () => {
         obstacle.x = $obstacle.offset().left
         obstacle.y = $obstacle.offset().top
         if (obstacle.collide === false) {
             checkCollision()
-        } else {
-            console.log('start game')
         }
     }
     
@@ -146,32 +126,27 @@ $(document).ready(() => {
         char.x = $char.offset().left
         char.y = $char.offset().top
     }
-    //
-    //
-    // THIS WORKS
-    //
-    //
-    
-    
-    // $obstacle.css({left: '100%'})
-    // console.log($obstacle.offset());
-    // setTimeout(function() {
-        //     $obstacle.css({left: '-10%'})
-        //     console.log($obstacle.offset())
-        // }, 200)
-        
-        
-        //
-        //
-        //
-        //
-        //
-        
 
-
-
-    // also fade div darker
-    // after interval, show dialogue with number of obstacles avoided and a try again
-    // reset game on try again
-
+    const checkCollision = () => {
+        if (char.y < obstacle.y + obstacle.height && 
+            char.y + char.height > obstacle.y &&
+            char.x < obstacle.x + obstacle.width &&
+            char.x + char.width > obstacle.x) {
+                obstacle.collide = true;
+                // also stop movement on all units
+                $char.stop( true, false ).animate({bottom: '20%'}, 500, function() {
+                    $char.addClass('disabled')
+                })
+                $obstacle.stop()
+                // also fade div darker
+                $main.css("filter", "brightness(75%) contrast(133%)")
+                // after interval, show dialogue with number of obstacles avoided and a try again
+                $p.html(`your score: ${score}`)
+                $button.html('try again!')
+                setTimeout(function() {
+                    $dialogue.toggle('hiddenDialogue')
+                    $char.addClass('disabled')
+                }, 300)
+            }
+    }
 })    
