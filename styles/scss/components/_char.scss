@@ -28,6 +28,14 @@ main {
     border: hidden;
     border-radius: 7.5px;
     z-index: 10;
+    @include smDesktop {
+        width: 9vw;
+        height: 9vw;
+    }
+    @include tablet {
+        width: 10vw;
+        height: 10vw;
+    }
 }
 
 .obstacle {
@@ -38,8 +46,17 @@ main {
     height: 0;
     border-left: 3.8vw solid transparent;
     border-right: 3.8vw solid transparent;
-    border-bottom: 5.2vw solid $secondaryColor;      // $black   
-
+    border-bottom: 5.2vw solid $secondaryColor; 
+    @include smDesktop {
+        border-bottom-width: 8vw;
+        border-left-width: 5vw;
+        border-right-width: 5vw;
+    }
+    @include tablet {
+        border-bottom-width: 9vw;
+        border-left-width: 6.2vw;
+        border-right-width: 6.2vw;
+    }
 }
 
 .hiddenDialogue {

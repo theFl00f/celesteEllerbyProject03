@@ -313,6 +313,20 @@ main {
   z-index: 10;
 }
 
+@media (max-width: 960px) {
+  .char {
+    width: 9vw;
+    height: 9vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .char {
+    width: 10vw;
+    height: 10vw;
+  }
+}
+
 .obstacle {
   position: absolute;
   bottom: 20%;
@@ -324,6 +338,22 @@ main {
   border-bottom: 5.2vw solid #643173;
 }
 
+@media (max-width: 960px) {
+  .obstacle {
+    border-bottom-width: 8vw;
+    border-left-width: 5vw;
+    border-right-width: 5vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .obstacle {
+    border-bottom-width: 9vw;
+    border-left-width: 6.2vw;
+    border-right-width: 6.2vw;
+  }
+}
+
 .hiddenDialogue {
   display: none;
 }
@@ -333,6 +363,13 @@ button {
   background-color: #fff2d8;
   border: transparent;
   border-radius: 5px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+button:hover,
+button:focus-within {
+  background-color: #86a59c;
 }
 
 .dialogue {
@@ -354,6 +391,20 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media (max-width: 960px) {
+  .dialogue {
+    left: 25%;
+    right: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialogue {
+    left: 16%;
+    right: 16%;
+  }
 }
 
 body {
@@ -398,6 +449,12 @@ body {
   z-index: 100;
 }
 
+@media (max-width: 960px) {
+  .wrapper::before {
+    left: -15%;
+  }
+}
+
 .wrapper::after {
   content: "";
   position: absolute;
@@ -407,6 +464,18 @@ body {
   bottom: 0;
   background-color: #7d5ba6;
   z-index: 100;
+}
+
+@media (max-width: 960px) {
+  .wrapper::after {
+    right: -15%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper::after {
+    right: -16.5%;
+  }
 }
 
 main {
@@ -426,6 +495,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  z-index: 100;
 }
 
 p {
@@ -447,6 +517,15 @@ h2 {
   -webkit-box-align: baseline;
       -ms-flex-align: baseline;
           align-items: baseline;
+}
+
+@media (max-width: 480px) {
+  h2 {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    margin: 5% 0 10%;
+  }
 }
 
 span {

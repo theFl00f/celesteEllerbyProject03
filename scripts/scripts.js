@@ -30,21 +30,63 @@ $(document).ready(() => {
         collide: false
     }
 
+
+    const smDesktop = () => {
+        const mediaQuery = window.matchMedia('(max-width: 960px)');
+        return mediaQuery.matches; 
+    }
+
+    const tablet = () => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        return mediaQuery.matches;
+    }
+
+    const phone = () => {
+        const mediaQuery = window.matchMedia('(max-width: 480px)');
+        return mediaQuery.matches;
+    }
+
+    const smPhone = () => {
+        const mediaQuery = window.matchMedia('(max-width: 300px)');
+        return mediaQuery.matches;
+    }
+
+    let end = '-10%'
+
+
     // on click of "start" close dialogue
     $char.addClass('disabled');
+    let time;
+    const setTime = () => {
+        if (smDesktop() === false && tablet() === false && phone() === false && smPhone() === false) {
+            return time = 4600;
+        } else if (smDesktop() === true && tablet() === false && phone() === false && smPhone() === false) {
+            return time = 3800;
+        } else if (smDesktop() === true && tablet() === true && phone() === false && smPhone() === false) {
+            return time = 3000;
+        } else if (smDesktop() === true && tablet() === true && phone() === true && smPhone() === false) {
+            return time = 2500;
+        } else {
+            return time = 2000;
+        }
+    }
+    setTime();
+    
+
 
     const gameStart = () => {
         if ($dialogue.hasClass('hiddenDialogue') === false) {
-            $main.css('filter', 'none')
+            $main.css('filter', 'none');
             setTimeout(function() {
-                $char.removeClass('disabled')
+                $char.removeClass('disabled');
             }, 200);
-            $obstacle.css({left:'100%'}).delay(1000)
-            .animate({left: '-10%'}, 4600, "linear", function() {
-                increaseScore()
+
+
+            $obstacle.css({left: '100%'}).delay(1000)
+            .animate({left: '-10%'}, time, "linear", function() {
+                increaseScore();
                 gameStart();
-                //OTHER TWO DO, IDK WHAT'S GOIN ON
-                timer()
+                timer();
             });
         }
     }
@@ -91,10 +133,15 @@ $(document).ready(() => {
         } 
     })
     
-    $main.on('click', function() {
+    $(document).on('click', function() {
         jump();
     })
-    $
+
+    $(window).on('resize',() => {
+        mediaQueries();
+    })
+
+
     // when char's coordinates are across the obstacle (or past a certain point) increase score held in variable.
     $score.html(score)
     const increaseScore = () => {
@@ -115,16 +162,22 @@ $(document).ready(() => {
     }
     
     const updateObstacleLocation = () => {
-        obstacle.x = $obstacle.offset().left
-        obstacle.y = $obstacle.offset().top
+        obstacle.x = $obstacle.offset().left;
+        obstacle.y = $obstacle.offset().top;
+        obstacle.height = $obstacle.height();
+        obstacle.width = $obstacle.width();
+
+
         if (obstacle.collide === false) {
             checkCollision()
         }
     }
     
     const updateCharLocation = () => {
-        char.x = $char.offset().left
-        char.y = $char.offset().top
+        char.x = $char.offset().left;
+        char.y = $char.offset().top;
+        char.height = $char.height();
+        char.width = $char.width();
     }
 
     const checkCollision = () => {
@@ -149,4 +202,14 @@ $(document).ready(() => {
                 }, 300)
             }
     }
+
+    const mediaQueries = () => {
+        smDesktop()
+        tablet()
+        phone()
+        smPhone()
+        setTime()
+    }
+
+    mediaQueries()
 })    
