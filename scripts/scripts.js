@@ -54,7 +54,6 @@ $(document).ready(() => {
     let end = '-10%'
 
 
-    // on click of "start" close dialogue
     $char.addClass('disabled');
     let time;
     const setTime = () => {
@@ -72,8 +71,20 @@ $(document).ready(() => {
     }
     setTime();
     
+    // when char's coordinates are across the obstacle (or past a certain point) increase score held in variable.
+    $score.html(score)
+    const increaseScore = () => {
+        score++;
+        // display variable in text field.
+        $score.html(score)
+    }
 
 
+
+
+
+    
+    // on click of "start" close dialogue
     const gameStart = () => {
         if ($dialogue.hasClass('hiddenDialogue') === false) {
             $main.css('filter', 'none');
@@ -91,7 +102,7 @@ $(document).ready(() => {
         }
     }
 
-        // reset game on try again
+    // reset game on try again
     $button.on('click', function(e) {
         if (obstacle.collide === true) {
             $char.removeClass('jump')
@@ -141,18 +152,11 @@ $(document).ready(() => {
         mediaQueries();
     })
 
+    
 
-    // when char's coordinates are across the obstacle (or past a certain point) increase score held in variable.
-    $score.html(score)
-    const increaseScore = () => {
-        score++;
-        // display variable in text field.
-        $score.html(score)
-    }
 
     
     // also on click of "start" start method on bg obstacle objects to move across screen at solid rate
-
     const obstacleLocationInterval = setInterval(function() {
         updateObstacleLocation()
     }, 100)
